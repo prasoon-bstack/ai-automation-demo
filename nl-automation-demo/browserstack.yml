@@ -1,0 +1,37 @@
+# ======================
+# BrowserStack Credentials
+# ======================
+# Credentials are read from the BROWSERSTACK_USERNAME / BROWSERSTACK_ACCESS_KEY
+# environment variables. Do not hardcode real credentials in this file.
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+# TODO: Replace these sample values with your actual project details
+projectName: nl-agent-demo
+buildName: nl-agent-demo-Build
+
+# =======================================
+# Platforms (Browsers / Devices to test)
+# =======================================
+platforms:
+  - os: Windows
+    osVersion: "11"
+    browserName: chrome
+    browserVersion: latest
+
+# =======================
+# Parallels per Platform
+# =======================
+parallelsPerPlatform: 1
+
+# =================
+# Local Testing
+# =================
+browserstackLocal: false
+
+# ===================
+# Debugging features
+# ===================
+debug: true
+testObservability: true
+aiAuthoring: true

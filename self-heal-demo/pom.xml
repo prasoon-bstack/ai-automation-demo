@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.browserstack.selfheal</groupId>
+  <artifactId>ai-self-heal</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>ai-self-heal</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.browserstack.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.14.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.9.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.browserstack</groupId>
+        <artifactId>browserstack-java-sdk</artifactId>
+        <version>1.59.3</version>
+        <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.8</version>
+          <executions>
+              <execution>
+                  <id>getClasspathFilenames</id>
+                  <goals>
+                      <goal>properties</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M5</version>
+          <configuration>
+              <argLine>
+                  -javaagent:${com.browserstack:browserstack-java-sdk:jar}
+              </argLine>
+              <includes>
+                  <include>**/SelfHealTest.java</include>
+              </includes>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

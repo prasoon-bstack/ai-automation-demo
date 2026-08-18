@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading...</title>
+    <script>
+      // Surge serves 404.html for unknown routes unless a 200 fallback is provided.
+      // Instead of mutating the URL (which produced /?/… redirects), load the main
+      // SPA shell in-place so React Router can hydrate the correct route.
+      fetch('/index.html', { credentials: 'same-origin' })
+        .then((response) => response.text())
+        .then((html) => {
+          document.open();
+          document.write(html);
+          document.close();
+        })
+        .catch(() => {
+          window.location.replace('/');
+        });
+    </script>
+  </head>
+  <body>
+    <p>Loading the application…</p>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+userName: BROWSERSTACK_USERNAME
+accessKey: BROWSERSTACK_ACCESS_KEY
+
+projectName: AI SelfHeal
+buildName: AI Self Healing
+
+platforms:
+  - os: Windows
+    osVersion: 11
+    browserName: Edge
+    browserVersion: latest
+
+selfHeal: true
