@@ -35,7 +35,7 @@ if [ ! -d "${APP_DIR}" ]; then
 fi
 
 cd "${APP_DIR}"
-git checkout demo_app_v2
+git checkout main
 npm install
 
 # ------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ if [ ! -d "${TEST_DIR}" ]; then
 fi
 
 cd "${TEST_DIR}"
-git checkout testng-automate
+git checkout main
 mvn clean install -DskipTests
 
 # ------------------------------------------------------------------------------
