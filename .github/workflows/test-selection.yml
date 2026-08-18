@@ -1,0 +1,49 @@
+name: Test Selection Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-test-selection:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: test-selection-demo/test-selection-demo-app-browserstack/package-lock.json
+
+      - name: Install app dependencies
+        run: |
+          cd test-selection-demo/test-selection-demo-app-browserstack
+          npm install
+
+      - name: Run baseline build (Smart Selection disabled)
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: |
+          cd test-selection-demo/test-selection-demo-test-browserstack
+          sed -i -E "/runSmartSelection:/,/enabled:/ s/(enabled:[[:space:]]*)(true|false)/\1false/" browserstack.yml
+          mvn test || echo "Baseline tests finished (failures/skips expected in demo)."
+
+      - name: Run optimized build (Smart Selection enabled)
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: |
+          cd test-selection-demo/test-selection-demo-test-browserstack
+          sed -i -E "/runSmartSelection:/,/enabled:/ s/(enabled:[[:space:]]*)(true|false)/\1true/" browserstack.yml
+          mvn test || echo "Smart Selection tests finished (failures/skips expected in demo)."
